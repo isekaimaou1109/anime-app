@@ -1,0 +1,437 @@
+@use './variables.scss' as var;
+@use './nav.module.scss' as nav;
+
+@include var.below(var.$xl) {
+  #dashboard-container {
+    #sidebar-container {
+      width: 56px!important;
+      
+      #sidebar-header {width: fit-content!important;}
+
+      .sidebar-body {
+        padding: 0!important;
+        &-item {
+          padding: 10px 20px!important;
+          svg {flex: 1!important;z-index: 12;}
+          .name {display: none;}
+          &:hover {cursor: pointer;}
+          &::before {
+            content: "";
+            width: 40px;
+            position: absolute;
+            background: #a77aff;
+            height: 40px;
+            border-radius: 50%;
+            left: 7px;
+            z-index: 10;
+            transform-origin: center;
+            opacity: 0;
+            transform: scale(0);
+            transition: transform .8s ease, opacity .8s ease;
+          }
+          &:hover::before {
+            content: "";
+            transform: scale(1);
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+}
+
+@include var.below(var.$md) {
+  #dashboard-container {
+    #dashboard-body-container {
+      .dashboard-body {
+        grid-template-columns: 1fr!important;
+        #welcome-home {
+          grid-column: 1/2!important;
+        }
+      }
+    }
+  }
+}
+
+#dashboard-container {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  transition: grid-template-columns 1s ease;
+  height: 100%;
+
+  #sidebar-container {
+    width: 300px;
+    background-color: #7e7deb;
+    overflow-y: scroll;
+    display: grid;
+    grid-template-rows: min-content 1fr;
+    grid-gap: 20px;
+    transition: width 1s ease;
+
+    &::after {
+      content: "";
+      background: url(/static/waves.svg),url(https://toigingiuvedep.vn/wp-content/uploads/2021/01/anh-dong-gif-anime-dep.gif);
+      background-repeat: no-repeat;
+      background-size: cover;
+      transform: rotate(
+  270deg) translateY(290px);
+    }
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    #sidebar-header {
+      padding: 20px 0px;
+      position: fixed;
+      background-color: #7e7deb;
+      z-index: 2000;
+
+      a {
+        margin-left: 20px;
+        padding: 10px 0px;
+      }
+    }
+
+    .sidebar-body {
+      margin-top: 50px;
+      height: fit-content;
+      padding: 20px 20px 0px 20px;
+      &-item {
+        position: relative;
+        color: white;
+        display: flex;
+        align-items: center;
+        height: 42px;
+
+        .name {
+          flex: 1;
+          margin-left: 30px;
+        }
+      }
+    }
+  }
+
+  #dashboard-body-container {
+    flex: 1;
+    background: url(https://toigingiuvedep.vn/wp-content/uploads/2021/01/anh-dong-gif-anime-dep.gif);
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      padding: 0px 10px;
+
+      .dashboard-tools {
+        display: flex;
+        background: transparent;
+        transition: background .8s ease;
+        * {
+          padding: 20px;color:white;
+          &:hover {
+            background: #9470b5;
+            cursor: pointer;
+          }
+        }
+        .input {
+          padding: 0;
+          height: 36px;
+          outline: 0;
+          background: transparent;
+          border: 1px solid white;
+          align-self: center;
+          border-radius: 5px;
+          width: 0;
+          padding: 0px 10px;
+          visibility: hidden;
+          transition: width .8s ease;
+          &::placeholder {
+            color: white;
+          }
+        }
+      }
+
+      .dashboard-personal {
+        display: flex;
+        align-items: center;
+        position: relative;
+        padding: 0px 20px;
+
+        img {
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          &:hover {
+            cursor: pointer;
+          }
+        }
+
+        .settings {
+          position: absolute;
+          width: 300px;
+          top: 56px;
+          right: 0;
+          background: #b5b5b5;
+          visibility: hidden;
+          height: 0;
+          transition: height .8s ease;
+          z-index: 2003;
+
+          &-item {
+            padding: 10px;
+            height: 22px;
+
+            &:hover {
+              background: rgb(252, 137, 242);
+              color: #b5b5b5;
+            }
+
+            svg {color: #423b3b88;}
+            &-name {
+              margin-left: 10px;
+              color: white;
+            }
+          }
+        }
+      }
+    }
+
+    .dashboard-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding: 50px;
+      grid-gap: 30px;
+      
+      .profile-container {
+        display: grid;
+        grid-template-columns: 1fr min-content;
+
+        .personal-profile {
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: min-content min-content min-content min-content;
+          display: grid;
+          grid-column-gap: 20px;
+          grid-row-gap: 40px;
+
+          .input-field-container {
+            position: relative;
+            height: fit-content;
+
+            span {
+              position: absolute;
+              top: -15px;
+              font-size: 12px;
+            }
+
+            &:nth-child(3) {
+              grid-row: 2/3;
+              grid-column: 1/2;
+            }
+
+            &:nth-child(4) {
+              grid-row: 3/4;
+              grid-column: 1/2;
+            }
+
+            &:nth-child(5) {
+              grid-column: 4/5;
+              grid-column: 1/2;
+            }
+
+            &:nth-child(6) {
+              grid-column: 4/5;
+              grid-column: 2/3;
+            }
+
+            input {
+              padding: 10px 0px;
+              min-width: 200px;
+              background: transparent;
+              border: none;
+              border-bottom: 5px solid white;
+              outline: 0;
+
+              &:nth-child(1), &:nth-child(2), 
+              &:nth-child(5), &:nth-child(6) {
+                width: 350px;
+              }
+
+              &:nth-child(3), &:nth-child(4) {
+                width: 450px;
+              }
+            }
+          }
+
+          .button-field-container {
+            display: flex;
+            gap: 10px;
+            height: 42px;
+
+            button {
+              border: none;
+              padding: 10px;
+              border-radius: 5px;
+              color: white;
+
+              &:nth-child(1) {background: #ff5252;}
+              &:nth-child(2) {background: #81ff90;}
+            }
+          }
+        }
+      }
+
+      .box {
+        display: flex;
+        flex-direction: column;
+
+        &-item {
+          position: relative;
+          padding: 20px 0px;
+
+          svg {
+            position: absolute;
+            top: 42px;
+            right: 0;
+            color: #ff3f3f;
+            font-size: 24px;
+          }
+
+          .circle {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: red;
+            position: absolute;
+            top: 42px;
+            left: -10px;
+
+            &:hover {
+              cursor: pointer;
+              &::after {
+                content: "";
+                width: 200px;
+              }
+            }
+
+            &::after {
+              content: "";
+              width: 0;
+              height: 5px;
+              background: red;
+              position: absolute;
+              left: 20px;
+              top: 8px;
+              transition: width 1s ease;
+            }
+
+            &:hover + .info-container {
+              opacity: 1!important;
+            }
+          }
+
+          .info-container {
+            display: grid;
+            grid-template-columns: 64px 1fr;
+            grid-template-rows: 64px;
+            opacity: 0;
+            transform: translateX(200px);
+            border: 1px solid white;
+            width: fit-content;
+            min-width: 300px;
+            grid-column-gap: 10px;
+            border-radius: 10px;
+            transition: opacity .5s ease;
+            transition-delay: 1s;
+
+            img {
+              border-top-left-radius: 10px;
+              border-bottom-left-radius: 10px;
+            }
+
+            .anime-wrapper {
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              grid-template-rows: min-content min-content;
+              padding: 5px 0px;
+              line-height: 1.6;
+
+              h1 {grid-column: 1/3;margin-right: 10px;}
+              * {&:nth-child(3) {margin-right: 10px;text-align: right;}}
+            }
+          }
+        }
+      }
+
+      #welcome-home {
+        grid-column: 1/3;
+        position: relative;
+        background: transparent;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border: 1px solid #7e7deb;
+        border-radius: 5px;
+        height: 200px;
+        box-shadow: 0 0 6px 6px #b5b5df, 0 0 12px 12px #7e7deb;
+
+        img {
+          transform: translateY(-36px);
+          border-radius: 50%;
+        }
+
+        p {
+          color: white;
+          font-size: 24px;
+          text-align: center;
+          padding: 0px 20px 20px 20px;
+        }
+      }
+
+      .dashboard-item {
+        min-width: 300px;
+        &-title {
+          color: white;
+          font-size: 24px;
+          padding: 10px 10px 5px 0px;
+          border-bottom: 3px solid red;
+        }
+
+        &-body {
+          .item-container {
+            display: flex;
+            gap: 10px;
+            margin: 10px 0px;
+
+            &:nth-child(even) {
+              background: #c3c3c3;
+            }
+
+            &:nth-child(odd) {
+              background: #545454;
+            }
+
+            .item-body {
+              flex: 1;
+              display: grid;
+              grid-template-columns: 1fr min-content;
+              color: white;
+
+              .item-currentepisode {
+                grid-row: 2/3;
+                grid-column: 2/3;
+                padding: 0px 10px;
+              }
+              
+              .item-currenttime {
+                grid-row: 2/3;
+                grid-column: 1/2;
+              }
+            }
+          }
+        }
+        span {color: white;}
+      }
+    }
+  }
+}

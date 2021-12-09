@@ -1,0 +1,57 @@
+@use './nav.module.scss' as nav;
+@use './variables' as var;
+
+#footer {
+  background: #070720 !important;
+  position: relative;
+  display: flex;
+  justify-content: center;
+
+  @include var.below(var.$lg) {
+    .contact {
+      flex-direction: column;
+
+      p {
+        align-self: flex-start;
+      }
+    }
+  };
+
+  @include var.below(var.$sm) {
+    .contact {
+      p {
+        align-self: center;
+      }
+    }
+  };
+
+  .contact {
+    padding: 50px 0px 50px 0px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 10px;
+    p { color: white; }
+    #footer-list {
+      @include nav.remove_default_dot;
+      display: flex;
+      color: #b7b7b7;
+      .footer-list-item {
+        padding: 0px 20px;
+        white-space: nowrap;
+      }
+    }
+  }
+  .btn {
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    transform: translateX(30px);
+    background: #e53637;
+    color: white;
+    position: absolute;
+    top: calc(-1 * (50px / 2));
+    left: calc(((100% - 50px) / 2) - 25px);
+  }
+}

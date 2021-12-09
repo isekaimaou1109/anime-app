@@ -1,0 +1,35 @@
+$xl: 1200px;
+$lg: 992px;
+$md: 768px;
+$sm: 576px;
+
+@mixin main {
+  #main {
+    background: #0b0c2a;
+    padding: 30px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    @content
+  }
+}
+
+@mixin media($kf, $kt) {
+  @media (min-width: $kf) and (max-width: $kt) {
+    @content;
+  }
+}
+
+@mixin above($min) {
+  @media only screen and (min-width: $min) {
+    @content;
+  }
+}
+
+@mixin below($max) {
+  @media only screen and (max-width: $max) {
+    @content;
+  }
+}

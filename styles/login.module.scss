@@ -1,0 +1,165 @@
+@use './form.module.scss' as form;
+@use './variables' as var;
+
+@mixin btn($mg: 0px) {
+  padding: 10px 15px;
+  border: 0;
+  background: #f55454;
+  color: white;
+  margin-top: $mg;
+}
+
+@include var.below(var.$lg) {
+  .login-form {
+    grid-template-columns: repeat(1, 1fr)!important;
+    &-item {
+      padding: 0!important;
+      &:nth-child(1) {
+        align-items: flex-start!important;
+        border-right: 0!important;
+      }
+      .field-parent {
+        width: 100%!important;
+        .field-container {
+          width: 100%!important;
+        }
+      }
+      .button-container {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+      }
+    }
+  }
+}
+
+.login-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin: 50px 0px;
+
+  @include var.below(var.$sm) {
+    .login-form-item {
+      .form-title {
+        font-size: 1.5rem!important;
+      }
+      &:nth-child(1) {
+        .button-container {
+          flex-direction: column;
+          width: fit-content!important;
+          align-items: flex-end!important;
+          gap: 20px;
+          .btn {width: 100%!important;}
+        }
+      }
+    }
+  }
+
+  &-item {
+    padding: 10px 40px;
+    &:nth-child(1) {
+      border-right: 1px solid #888;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+    .form-title {
+      color: white;
+      font-size: 2rem;
+      margin: 30px 0px;
+      align-self: flex-start;
+    }
+
+    .field-parent {
+      width: 100%;
+      .field-container {
+        display: flex;
+        margin: 20px 0px;
+        background: #e0e0e0;
+        padding: 5px 0px;
+        .icon {
+          @include form.icon(1px);
+          user-select: none;
+        }
+        .icon-p {
+          @include form.icon(0px);
+          user-select: none;
+        }
+        .field {
+          padding: 0px 0px 0px 10px;
+          outline: 0;
+          background: #e0e0e0;
+          border: 0;
+          color: #807d7d;
+          flex: 1;
+        }
+      }
+    }
+
+    .button-container {
+      align-self: flex-start;
+      margin: 30px 0px;
+      * {
+        @include btn(0px);
+        &:nth-child(2) {
+          margin-left: 10px;
+        }
+      }
+    }
+
+    .btn {
+      @include btn(0px);
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.divider {
+  margin: 20px 0px 40px 0px;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+}
+
+@include var.below(var.$sm) {
+  .login-button-container {
+    .btn {width: 100%!important;}
+  }
+}
+
+.login-button-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  .btn {
+    display: flex;
+    width: 80%;
+    padding: 10px;
+    color: white;
+    .btn-title {
+      text-align: center;
+      width: 100%;
+    }
+    &:hover {
+      cursor: pointer;
+    }
+    &:nth-child(1) {
+      background: #0d6ce2;
+    }
+    &:nth-child(2) {
+      background:  #f55454;
+    }
+    &:nth-child(3) {
+      background: #549cf5;
+    }
+  }
+}
+
+.space {
+  margin: 50px 0px;
+}

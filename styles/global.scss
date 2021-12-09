@@ -1,0 +1,233 @@
+@use './variables' as var;
+
+@mixin justify {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+@font-face {
+  font-family: 'nutrino';
+  src:  url('http://localhost:3000/fonts/nutrino-sans.ttf');
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100vh!important;
+  overflow-x: hidden;
+  display: flex;
+
+  .image {
+    width: 64px;
+    height: 64px;
+  }
+  
+  video {
+    width: 100%;
+    outline: 0;
+  }
+  a {text-decoration: none;}
+
+
+  * {font-family: 'nutrino';&::selection {
+    background: #ebb3e4;
+  }}
+
+  select {
+    appearance: none;
+    border: none;
+    background: #0b0c2a;
+    color: white;
+    outline: 0;
+    text-align: center;
+    border-bottom: 3px solid white;
+    padding: 0px 0px 5px 0px;
+    * {padding:10px;}
+  }
+
+  button {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  * {
+    -webkit-user-drag: none;
+    scroll-behavior: smooth;
+  }
+
+  h1,h2,h3,h4,h5,h6,pre,p {margin:0;}
+
+  .text {
+    height: fit-content;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  #__next {
+    @include justify();
+    
+    .intro {
+      color: white;
+      text-align: center;
+      background: url(/static/normal-breadcrumb.jpg);
+      background-position: center;
+      background-repeat: no-repeat;
+      width: 100%;
+      line-height: 1.5;
+      padding: 100px 0px;
+      .intro-title {
+        font-size: 2.5rem;
+      }
+      .intro-description {
+        font-size: 1.5rem;
+      }
+    }
+  }
+}
+
+@include var.above(var.$xl) {
+  .align {
+    width: 1100px!important;
+  }
+};
+
+@include var.media(var.$lg, var.$xl) {
+  .align {
+    width: 892px!important;
+  }
+};
+
+@include var.media(var.$md, var.$lg) {
+  .align {
+    width: 668px!important;
+  }
+};
+
+@include var.media(var.$sm, var.$md) {
+  .align {
+    width: 476px!important;
+  }
+};
+
+@include var.below(var.$sm) {
+  .align {
+    width: 90%!important;
+  }
+};
+
+.hidden {
+  height: 0;
+  visibility: hidden;
+  transition: height 1s ease;
+}
+
+.remove-spacing {
+  padding-top: 0px!important;
+}
+
+#closed {
+  display: none;
+  z-index: -1;
+}
+
+.text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#modal {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 2000;
+  background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+  &-wrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 10%;
+    svg {
+      align-self: flex-end;
+      color: white;
+      padding: 20px;
+      font-size: 2rem;
+    }
+    #search-container {
+      width: clamp(300px, 92%, 90%);
+      align-self: center;
+      input {
+        align-self: center;
+        min-width: 300px;
+        width: -webkit-fill-available;
+        margin: 60px 0px 0px 0px;
+        border: none;
+        border-bottom: 5px solid black;
+        padding: 10px;
+        background: transparent;
+        color: white;
+        outline: 0;
+        font-size: 24px;
+        &::placeholder {
+          color: white;
+        }
+      }
+      #list-query {
+        padding: 0;
+        margin: 10px 0px 0px 0px;
+        list-style: none;
+        width: 100%;
+        a {color: white;}
+        .list-query-item {
+          display: flex;
+          gap: 10px;
+          margin: 0px 0px 10px 0px;
+          .list-anime-title {
+            overflow: hidden;
+            flex: 1;
+            line-height: 1.8;
+          }
+        }
+      }
+    }
+  }
+}
+
+@mixin main {
+  #main {
+    background: #0b0c2a;
+    padding: 30px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    @content
+  }
+}

@@ -1,0 +1,587 @@
+@use 'sass:map';
+@use './variables.scss' as var;
+@use './nav.module.scss' as nav;
+
+// $opacity: 0;
+// $left: -6px;
+
+$lbp: (
+  0: var.$lg, 
+  1: var.$sm
+);
+$n: 3;
+
+
+@include var.below(var.$sm) {
+  .content-container {
+    grid-template-columns: 100%!important;
+  }
+}
+
+@include var.below(var.$md) {
+  .anime-container {
+    .content-wrapper {
+      &:nth-child(1) {
+        .anime-wrapper {
+          .anime-information {
+            .avatar-container {
+              gap: 30px;
+              grid-template-columns: 1fr!important;
+              .anime-avatar {
+                text-align: center;
+                img {border: 5px dashed white;}
+              }
+            }
+            .anime-detail {
+              margin-left: 0!important;
+              .anime-name {text-align: center;}
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@include var.below(var.$lg) {
+  .anime-container {
+    grid-template-columns: 1fr !important;
+    gap: 80px!important;
+    .content-wrapper {
+      &:nth-child(2) {
+        justify-self: center;
+        width: clamp(300px, 75%,500px);
+      }
+    }
+  }
+}
+
+.text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.anime-container {
+  display: grid;
+  grid-template-columns: 65% calc(35% - 20px);
+  gap: 20px;
+
+  .content-wrapper {
+    .anime-wrapper {
+      .breadcrumb {
+        height: 42px;
+        display: flex;
+        align-items: center;
+      }
+      .anime-information {
+        margin: 30px 0px 0px 0px;
+        .video-bar {
+          --opacity: 0;
+          --left: -6px;
+          height: 30px;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          color: white;
+          .video-button {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            background: red;
+            padding: 0px 10px;
+            border-radius: 5px;
+            font-size: 15px;
+            position: relative;
+            &::before {
+              content: "";
+              height: 100%;
+              width: 6px;
+              position: absolute;
+              left: var(--left);
+              opacity: var(--opacity);
+              background: linear-gradient(36deg, rgba(99,99,99,1) 0%, rgba(161,161,161,1) 100%);
+              transition: left .8s ease, opacity 1.2s ease;
+            }
+            &:hover {
+              cursor: pointer;
+            }
+          }
+        }
+        .avatar-container {
+          display: grid;
+          grid-template-columns: min-content 1fr;
+          .anime-avatar {
+            img {
+              filter: grayscale(100%);
+              transition: filter .8s ease;
+              &:hover {
+                cursor: pointer;
+                filter: grayscale(0%);
+              }
+            }
+          }
+          .anime-detail {
+            margin-left: 30px;
+            color: white;
+            line-height: 2;
+            .anime-name {font-size: 28px;}
+            .anime-genres {
+              display: flex;
+              flex-wrap: nowrap;
+              gap: 10px;
+              align-items: center;
+              .other-name {font-size: 14px;font-weight: bolder;}
+              .genre {
+                background: #878787;
+                border-radius: 5px;
+                font-size: 12px;
+                width: fit-content;
+                height: 25px;
+                text-align: center;
+                padding: 0px 5px;
+              }
+            }
+            .perspective-opinion-container {
+              .opinion-button {
+                border-radius: 5px;
+                border: none;
+                width: 60px;
+                height: 30px;
+                color: #253eeb;
+              }
+            }
+          }
+        }
+      }
+      .anime-description-accordion {
+        user-select: none;
+        margin-top: 20px;
+        display: grid;
+        grid-template-columns: 50px 1fr;
+        grid-template-rows: 50px 0px;
+        background: white;
+        color: #322d2d;
+        border-radius: 5px;
+        &:hover{cursor: pointer;}
+        svg {    
+          font-size: 24px;
+          align-self: center;
+          justify-self: center;
+        }
+        .title {align-self: center;font-weight: bold;}
+        .description {
+          grid-column-start: 2;
+          line-height: 2;
+          opacity: 0;
+          user-select: none;
+          padding: 0px 30px 10px 0px;
+        }
+      }
+      .anime-episodes {
+        margin-top: 30px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        gap: 10px;
+        &::before {
+          content: "Số tập:";
+          color: white;
+        }
+        .episode {
+          color: white;
+          background: #878787;
+          padding: 5px 10px;
+          border-radius: 5px;
+          font-size: 15px;
+        }
+      }
+    }
+
+    .content-item {
+      margin-bottom: 50px;
+      .content-title-wrapper {
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        .content-title {
+          padding: 10px;
+          border-left: 5px solid #ff4040;
+        }
+        .rank {
+          @include nav.remove_default_dot;
+          display: flex;
+          gap: 10px;
+        }
+      }
+      // Dưới 992px thì
+      @for $i from 0 through 1 {
+        @include var.below(map.get($lbp, $i)) {
+          .view-content {
+            @if $i == 0 {
+              $n: 2;
+              grid-template-columns: repeat(auto-fill, calc((100% / $n) - calc((10px * $n) / 2)))!important;
+              gap: calc(10px * $n)!important;
+            } @else {
+              $n: 1;
+              grid-template-columns: repeat(auto-fill, calc((100% / $n) - calc((10px * $n))))!important;
+              gap: calc(10px * $n)!important;
+            }
+          }
+        }
+      } 
+
+      .view-content {
+        width: inherit;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, calc((100% / $n) - 20px));
+        gap: 27.5px;
+
+        .card-container {
+          &:hover {
+            cursor: pointer;
+          }
+          .card-avatar {
+            position: relative;
+            height: 288px;
+
+            img {
+              width: 100%;
+              height: 100%;
+            }
+
+            .episode {
+              width: fit-content;
+              position: absolute;
+              top: 10px;
+              left: 10px;
+              padding: 3px 8px;
+              background: #ff4747;
+              border-radius: 5px;
+              color: white;
+              font-size: 12px;
+            }
+
+            .views {
+              position: absolute;
+              bottom: 10px;
+              left: 10px;
+              padding: 3px 8px;
+              background: #ff4747;
+              border-radius: 5px;
+              color: white;
+              font-size: 12px;
+            }
+
+            .eyes {
+              position: absolute;
+              bottom: 10px;
+              right: 10px;
+              padding: 3px 8px;
+              background: #ff4747;
+              border-radius: 5px;
+              color: white;
+              font-size: 12px;
+            }
+          }
+          .card-info {
+            .genres-container {
+              display: flex;
+              gap: 5px;
+              color: white;
+              font-size: 12px;
+              margin-top: 10px;
+              .genres-item {
+                padding: 3px 10px;
+                background: rgba(60,61,85,1);
+                border-radius: 10px;
+              }
+            }
+            .card-name {
+              color: white;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              font-family: 'nutrino';
+              white-space: nowrap;
+              margin: 10px 0px;
+            }
+          }
+        }
+      }
+
+      .content-view {
+        .card-container {
+          position: relative;
+          margin-bottom: 20px;
+          overflow: hidden;
+
+          &:hover {
+            .card-avatar {
+              .bg {
+                transform: scale(1.5);
+              }
+            }
+          }
+
+          .card-avatar {
+            .bg {
+              border-radius: 5px;
+              width: 100%;
+              height: 200px;
+            }
+
+            .episode {
+              position: absolute;
+              top: 10px;
+              left: 10px;
+              background: #ff4747;
+              padding: 5px;
+              border-radius: 5px;
+              font-size: 12px;
+              color: white;
+            }
+
+            .eyes {
+              position: absolute;
+              top: 10px;
+              right: 10px;
+              background: #ff4747;
+              padding: 5px;
+              border-radius: 5px;
+              font-size: 12px;
+              color: white;
+            }
+
+            .card-name {
+              position: absolute;
+              bottom: 10px;
+              left: 10px;
+              border-radius: 5px;
+              font-size: 1.2rem;
+              color: white;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              text-shadow: 1px 1px #888;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.content-container {
+  display: grid;
+  grid-template-columns: 65% calc(35% - 20px);
+  gap: 20px;
+  .content-wrapper {
+    .content-item {
+      margin-bottom: 50px;
+      .content-title-wrapper {
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        .content-title {
+          padding: 10px;
+          border-left: 5px solid #ff4040;
+        }
+        .rank {
+          @include nav.remove_default_dot;
+          display: flex;
+          gap: 10px;
+        }
+        .selection {
+          position: relative;
+          padding: 10px;
+          border-bottom: 2px solid white;
+
+          &:hover {cursor: pointer;}
+
+          &-body {
+            z-index: 2002;
+            position: absolute;
+            background: #b5b5b5;
+            right: 0;
+            width: 100px;
+            text-align: center;
+            margin-top: 10px;
+            a {
+              color: white;
+              * {padding: 10px;&:hover {background: #f17c7c;}}
+            }
+          }
+        }
+      }
+      // Dưới 992px thì
+      @for $i from 0 through 1 {
+        @include var.below(map.get($lbp, $i)) {
+          .view-content {
+            @if $i == 0 {
+              $n: 2;
+              grid-template-columns: repeat(auto-fill, calc((100% / $n) - calc((10px * $n) / 2)))!important;
+              gap: calc(10px * $n)!important;
+            } @else {
+              $n: 1;
+              grid-template-columns: repeat(auto-fill, calc((100% / $n) - calc((10px * $n))))!important;
+              gap: calc(10px * $n)!important;
+            }
+          }
+        }
+      } 
+
+      .view-content {
+        width: inherit;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, calc((100% / $n) - 20px));
+        gap: 27.5px;
+
+        .card-container {
+          &:hover {
+            cursor: pointer;
+          }
+          .card-avatar {
+            position: relative;
+            height: 288px;
+
+            img {
+              width: 100%;
+              height: 100%;
+            }
+
+            .episode {
+              width: fit-content;
+              position: absolute;
+              top: 10px;
+              left: 10px;
+              padding: 3px 8px;
+              background: #ff4747;
+              border-radius: 5px;
+              color: white;
+              font-size: 12px;
+            }
+
+            .views {
+              position: absolute;
+              bottom: 10px;
+              left: 10px;
+              padding: 3px 8px;
+              background: #ff4747;
+              border-radius: 5px;
+              color: white;
+              font-size: 12px;
+            }
+
+            .eyes {
+              position: absolute;
+              bottom: 10px;
+              right: 10px;
+              padding: 3px 8px;
+              background: #ff4747;
+              border-radius: 5px;
+              color: white;
+              font-size: 12px;
+            }
+          }
+          .card-info {
+            .genres-container {
+              display: flex;
+              gap: 5px;
+              color: white;
+              font-size: 12px;
+              margin-top: 10px;
+              .genres-item {
+                padding: 3px 10px;
+                background: rgba(60,61,85,1);
+                border-radius: 10px;
+              }
+            }
+            .card-name {
+              color: white;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              font-family: 'nutrino';
+              white-space: nowrap;
+              margin: 10px 0px;
+            }
+          }
+        }
+      }
+
+      .content-view {
+        .card-container {
+          position: relative;
+          margin-bottom: 20px;
+          overflow: hidden;
+
+          &:hover {
+            .card-avatar {
+              .bg {
+                transform: scale(1.5);
+              }
+            }
+          }
+
+          .card-avatar {
+            .bg {
+              width: 100%;
+              height: 200px;
+            }
+
+            .episode {
+              position: absolute;
+              top: 10px;
+              left: 10px;
+              background: #ff4747;
+              padding: 5px;
+              border-radius: 5px;
+              font-size: 12px;
+              color: white;
+            }
+
+            .eyes {
+              position: absolute;
+              top: 10px;
+              right: 10px;
+              background: #ff4747;
+              padding: 5px;
+              border-radius: 5px;
+              font-size: 12px;
+              color: white;
+            }
+
+            .card-name {
+              position: absolute;
+              bottom: 10px;
+              left: 10px;
+              border-radius: 5px;
+              font-size: 1.2rem;
+              color: white;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              text-shadow: 1px 1px #888;
+            }
+          }
+        }
+      }
+
+      .pagination-container {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        color: white;
+        margin-top: 50px;
+
+        * {padding: 10px;&:hover{cursor: pointer;}}
+        svg {
+          &:hover {background: #8b8b8b;}
+        }
+      }
+    }
+  }
+}
