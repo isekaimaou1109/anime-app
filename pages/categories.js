@@ -10,8 +10,6 @@ import Content from '../layout/categories-content'
 import headerCss from '../styles/nav.module.scss'
 import mainCss from '../styles/article.module.scss'
 
-import ContentLayout from '../layout/content'
-
 export default function CategoriesContainer({ data, totalPages }) {
   return <React.Fragment>
     <Helmet>

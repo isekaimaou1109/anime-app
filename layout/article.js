@@ -3,14 +3,19 @@ import axios from 'axios'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 
+import { useResize } from '../utils/useResize'
+
 import articleCss from '../styles/article.module.scss'
 
 export default function Article() {
   const [newContent, setFreshContent] = React.useState([])
   const carouselRef = React.createRef()
+  const dimension = useResize(carouselRef)
+  const [screen] = React.useState(dimension)
   var [count, setCount] = React.useState(0)
 
   React.useEffect(() => {
+
     var query = `
       query Query($type: String) {
         listAnime(type: $type) {
@@ -89,8 +94,11 @@ export default function Article() {
       {
         newContent.map(ct => {
           return <div data-active={false} style={{ 
-            background: `url(${ct.imageUri}?type=images&&width=500&&height=500)`,
-            transform: count * -500
+            background: `url(${ct.imageUri}?type=images&&width=300&&height=500)`,
+            backgroundSize: 'cover',
+            transform: count * -500,
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'cover'
           }} className={articleCss.item}>
             <p className={articleCss.genre}>Adventure</p>
             <div className={articleCss["anime-info"]}>
@@ -101,7 +109,9 @@ export default function Article() {
               <button className={articleCss.btn}>
                 <span>WATCH NOW</span>
               </button>
-              <FontAwesomeIcon className='icon' icon={faChevronRight} />
+              <FontAwesomeIcon style={{
+                padding: '0px 10px'
+              }} className='icon' icon={faChevronRight} />
             </div>
           </div>
         })

@@ -2,48 +2,37 @@ import React from 'react'
 import { Helmet } from "react-helmet";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faSearch, faBellSlash, faTimesCircle, faShieldAlt } from '@fortawesome/free-solid-svg-icons'
-import Link from 'next/link'
 import CryptoJS from 'crypto-js'
 import randToken from 'rand-token'
 import { useDispatch, useSelector } from 'react-redux'
 import { useDropzone } from 'react-dropzone';
 import axios from 'axios'
 
-import { process, getClientId } from '../../features/form/form'
+import { process } from '../../features/form/form'
 import { writeHistory } from '../../features/history/history'
 
 import dashboardCss from '../../styles/dashboard.module.scss'
 
 function useWindowSize() {
-  // Initialize state with undefined width/height so server and client renders match
-  // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
   const [windowSize, setWindowSize] = React.useState({
     width: undefined,
     height: undefined,
   });
 
   React.useEffect(() => {
-    // only execute all the code below in client side
     if (typeof window !== 'undefined') {
-      // Handler to call on window resize
       function handleResize() {
-        // Set window width/height to state
         setWindowSize({
           width: window.innerWidth,
           height: window.innerHeight,
         });
       }
     
-      // Add event listener
       window.addEventListener("resize", handleResize);
-     
-      // Call handler right away so state gets updated with initial window size
       handleResize();
-    
-      // Remove event listener on cleanup
       return () => window.removeEventListener("resize", handleResize);
     }
-  }, []); // Empty array ensures that effect is only run on mount
+  }, []);
   return windowSize;
 }
 
@@ -56,8 +45,7 @@ export default function Dashboard({ id }) {
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
   const [files, setFiles] = React.useState([]);
-  const returnedValue = (_v_) => _v_
-  const { acceptedFiles, fileRejections, getRootProps, getInputProps } = useDropzone({
+  const { getRootProps, getInputProps } = useDropzone({
     accept: 'image/jpeg, image/gif',
     maxFiles: 1,
     onDrop: imageFiles => {
@@ -202,26 +190,26 @@ export default function Dashboard({ id }) {
         </section>
 
         <section className={dashboardCss['sidebar-body']}>
-          <Link href={`/dashboard/${id[0]}/profile`}>
+          <a href={`/dashboard/${id[0]}/profile`}>
             <div className={dashboardCss['sidebar-body-item']}>
               <FontAwesomeIcon icon={faUser} />
               <span className={dashboardCss['name']}>Trang cá nhân</span>
             </div>
-          </Link>
+          </a>
 
-          <Link href={`/dashboard/${id[0]}/history`}>
+          <a href={`/dashboard/${id[0]}/history`}>
             <div className={dashboardCss['sidebar-body-item']}>
               <FontAwesomeIcon icon={faUser} />
               <span className={dashboardCss['name']}>Lịch sử đã xem</span>
             </div>
-          </Link>
+          </a>
 
-          <Link href={`/dashboard/${id[0]}/follow`}>
+          <a href={`/dashboard/${id[0]}/follow`}>
             <div className={dashboardCss['sidebar-body-item']}>
               <FontAwesomeIcon icon={faUser} />
               <span className={dashboardCss['name']}>Những bộ đang theo dõi</span>
             </div>
-          </Link>
+          </a>
 
           <a href={`/about`}>
             <div className={dashboardCss['sidebar-body-item']}>
@@ -273,12 +261,12 @@ export default function Dashboard({ id }) {
                 </div>   
               </a> 
 
-              <Link href={`/dashboard/${id}/profile`}>
+              <a href={`/dashboard/${id}/profile`}>
                 <div className={dashboardCss['settings-item']}>
                   <FontAwesomeIcon icon={faUser} />
                   <span className={dashboardCss['settings-item-name']}>Profile</span>
                 </div>
-              </Link>  
+              </a>  
 
               <a href={'/about'}>
                 <div className={dashboardCss['settings-item']}>
@@ -497,9 +485,9 @@ export default function Dashboard({ id }) {
                     })
                   }
                 </div>
-                <Link href={`/dashboard/${id[0]}/history`}>
+                <a href={`/dashboard/${id[0]}/history`}>
                   <span>Xem thêm</span>
-                </Link>
+                </a>
               </section>
 
               <section className={dashboardCss['dashboard-item']}>
@@ -526,9 +514,9 @@ export default function Dashboard({ id }) {
                     })
                   }
                 </div>
-                <Link href={`/dashboard/${id[0]}/follow`}>
+                <a href={`/dashboard/${id[0]}/follow`}>
                   <span>Xem thêm</span>
-                </Link>
+                </a>
               </section>
             </React.Fragment>))
           }

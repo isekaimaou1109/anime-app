@@ -158,15 +158,19 @@ function SideContent() {
           return (
             <div key={randToken.generate(8)} className={contentCss["card-container"]}>
               <div className={contentCss["card-avatar"]}>
-                <div style={{ background: `url(${rankingItem.imageUri}?type=images&&width=200&&height=288)` }} className={contentCss["bg"]}></div>
-                <p className={contentCss["episode"]}>{rankingItem.currentEpisode} / {rankingItem.totalEpisode}</p>
-                <p className={contentCss["eyes"]}>
-                  <span>{rankingItem.views}</span>
-                  <FontAwesomeIcon icon={faEye} />
-                </p>
-                <h2 className={contentCss["card-name"]}>
-                  {rankingItem.name.split('-').map(word => word[0].toUpperCase() + word.slice(1, word.length)).join(' ')}
-                </h2>
+                <div style={{ 
+                  background: `url(${rankingItem.imageUri}?type=images&&width=200&&height=288)`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center'
+                }} className={contentCss["bg"]}></div>
+                  <p className={contentCss["episode"]}>{rankingItem.currentEpisode} / {rankingItem.totalEpisode}</p>
+                  <p className={contentCss["eyes"]}>
+                    <span>{rankingItem.views}</span>
+                    <FontAwesomeIcon icon={faEye} />
+                  </p>
+                  <h2 className={contentCss["card-name"]}>
+                    {rankingItem.name.split('-').map(word => word[0].toUpperCase() + word.slice(1, word.length)).join(' ')}
+                  </h2>
               </div>
             </div>
           )

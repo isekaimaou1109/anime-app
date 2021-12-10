@@ -12,12 +12,6 @@ $lbp: (
 $n: 3;
 
 
-@include var.below(var.$sm) {
-  .content-container {
-    grid-template-columns: 100%!important;
-  }
-}
-
 @include var.below(var.$md) {
   .anime-container {
     .content-wrapper {
@@ -44,9 +38,14 @@ $n: 3;
 }
 
 @include var.below(var.$lg) {
+  .content-container {
+    grid-template-columns: 100%!important;
+  }
+
   .anime-container {
     grid-template-columns: 1fr !important;
     gap: 80px!important;
+
     .content-wrapper {
       &:nth-child(2) {
         justify-self: center;

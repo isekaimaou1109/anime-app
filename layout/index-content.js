@@ -196,7 +196,7 @@ function SideContent() {
           return (
             <div key={randToken.generate(8)} className={contentCss["card-container"]}>
               <div className={contentCss["card-avatar"]}>
-                <div style={{ background: `url(${rankingItem.imageUri}?type=images&&width=300&&height=200)` }} className={contentCss["bg"]}></div>
+                <div style={{ background: `url(${rankingItem.imageUri}?type=images&&width=400&&height=200)` }} className={contentCss["bg"]}></div>
                 <p className={contentCss["episode"]}>{rankingItem.currentEpisode} / {rankingItem.totalEpisode}</p>
                 <p className={contentCss["eyes"]}>
                   <span>{rankingItem.views}</span>

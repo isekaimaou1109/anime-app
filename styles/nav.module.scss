@@ -132,11 +132,16 @@
           white-space: nowrap;
           font-weight: bold;
           font-family: 'nutrino';
-          color: #b7b7b7;
+          color: #b7b7b7!important;
           padding: 20px;
   
-          &:nth-child(1) {
-            color: white;
+          a {
+            &:nth-child(1) {
+              color: white!important;
+              .list-item {
+                color: white!important;
+              }
+            }
           }
   
           &:nth-child(2) {

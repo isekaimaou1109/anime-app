@@ -1,4 +1,4 @@
-import { AnimeModel } from '../../models/anime.model'
+import { AnimeModel } from '../../models/a.model'
 
 export default async function chat(req, res) {
   if (req.method === "POST") {
@@ -8,18 +8,19 @@ export default async function chat(req, res) {
     // // dispatch to channel "message"
     if(res.socket.server.io) {
       const animeCmts = await AnimeModel().find({ name: animeName }).lean()
-      const newCmts = [{ 
-        username: username, 
-        createdAt: new Date().toLocaleString(),  
-        message: message
-      }, ...animeCmts]
-      const cmt = await AnimeModel().findOneAndUpdate({ name: animeName }, {
-        comments: newCmts
-      })
+      
+      // const newCmts = [{ 
+      //   username: username, 
+      //   createdAt: new Date().toLocaleString(),  
+      //   message: message
+      // }, ...animeCmts.comments]
+      // AnimeModel().findOneAndUpdate({ name: animeName }, {
+      //   comments: newCmts
+      // })
       res.socket.server.io.emit("message", message);
       // return message
       res.status(200).json({
-        msg: message
+        msg: animeCmts
       });
     }
   }
